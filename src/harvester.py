@@ -12,13 +12,18 @@ __pragma__('noalias', 'update')
 
 class Harvester:
 
+    @staticmethod
+    def run(creep, source):
+        if creep.memory.filling is True and creep.store[RESOURCE_ENERGY] < creep.store.getCapacity():
+            print(creep.store[RESOURCE_ENERGY])
+            if creep.harvest(source) == ERR_NOT_IN_RANGE:
+                creep.moveTo(source)
+        else:
+            creep.memory.filling = True
 
-    def __init__(self, creep, source):
-        self.creep = creep
-        self.source = source
-
-    def creep_harvest_run(cls):
-        # if self.creep.store(RESOURCE_ENERGY) < self.creep.store.getCapacity():
-        print(cls.creep.store(RESOURCE_ENERGY))
-        # if self.creep.harvest(self.source) == ERR_NOT_IN_RANGE:
-        #     self.creep.moveTo(self.source)
+        if creep.memory.filling:
+            pass
+        else:
+            print(creep.store[RESOURCE_ENERGY])
+            if creep.harvest(source) == ERR_NOT_IN_RANGE:
+                creep.moveTo(source)

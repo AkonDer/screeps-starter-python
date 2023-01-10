@@ -19,4 +19,4 @@ class CreepSpawn:
         spawn = Game.spawns.Spawn1
         num_creeps = _.sum(Game.creeps, lambda c: c.pos.roomName == spawn.pos.roomName)
         if num_creeps < cls.creeps_max:
-            spawn.createCreep(cls.creep_body, None, {"role": "Harvester"})
+            spawn.createCreep(cls.creep_body, None, {"role": "Harvester", "filling": False})

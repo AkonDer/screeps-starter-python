@@ -25,7 +25,7 @@ def main():
     for name in Object.keys(Game.creeps):
         creep = Game.creeps[name]
         sources = creep.room.find(FIND_SOURCES)
-        Harvester(creep, sources[0]).creep_harvest_run()
+        Harvester.run(creep, sources[0])
 
 
 module.exports.loop = main
