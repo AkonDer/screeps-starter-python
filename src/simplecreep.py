@@ -11,10 +11,16 @@ __pragma__('noalias', 'type')
 __pragma__('noalias', 'update')
 
 
-class Harvester:
+class SimpleCreep:
 
-    @staticmethod
-    def run(creep, source):
+    def __init__(self, creep, source):
+        self.creep = creep
+        self.source = source
+        pass
+
+    def run(self):
+        creep = self.creep
+        source = self.source
 
         spawn = Helper.near_spawn()
 
@@ -22,6 +28,7 @@ class Harvester:
         if creep.store[RESOURCE_ENERGY] == creep.store.getCapacity():
             creep.memory.filling = True
 
+        # Если спавн не полный, то восполнить, если полный, то апгейдить
         if spawn.store[RESOURCE_ENERGY] < spawn.store.getCapacity(RESOURCE_ENERGY):
             creep.memory.role = "Harvester"
         elif spawn.store[RESOURCE_ENERGY] == spawn.store.getCapacity(RESOURCE_ENERGY):
@@ -49,4 +56,3 @@ class Harvester:
             else:
                 if creep.harvest(source) == ERR_NOT_IN_RANGE:
                     creep.moveTo(source)
-

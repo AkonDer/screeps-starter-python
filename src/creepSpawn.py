@@ -1,4 +1,5 @@
 from defs import *
+from helper import Helper
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
@@ -16,7 +17,7 @@ class CreepSpawn:
 
     @classmethod
     def run(cls):
-        spawn = Game.spawns.Spawn1
+        spawn = Helper.near_spawn()
         num_creeps = _.sum(Game.creeps, lambda c: c.pos.roomName == spawn.pos.roomName)
         if num_creeps < cls.creeps_max:
             spawn.createCreep(cls.creep_body, None, {"role": "Harvester", "filling": False})
