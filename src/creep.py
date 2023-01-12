@@ -13,10 +13,11 @@ __pragma__('noalias', 'update')
 
 class Creep:
 
+    spawn = Helper.near_spawn()
+
     def __init__(self, creep, source):
         self.source = source
         self.creep = creep
-        self.spawn = Helper.near_spawn()
 
     def harvest_energy(self):
         if self.creep.harvest(self.source) == ERR_NOT_IN_RANGE:

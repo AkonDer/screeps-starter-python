@@ -12,11 +12,9 @@ __pragma__('noalias', 'update')
 
 
 class CreepSpawn:
-
-    def __init__(self):
-        self.spawn = Helper.near_spawn()
-        self.creep_harvester_max = 3
-        self.creep_builder_max = 2
+    creep_harvester_max = 3
+    creep_builder_max = 2
+    spawn = Helper.near_spawn()
 
     def run(self):
         if self.creep_count()["Harvesters"] < self.creep_harvester_max:
