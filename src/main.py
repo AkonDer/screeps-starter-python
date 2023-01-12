@@ -20,7 +20,7 @@ def main():
     Main game logic loop.
     """
 
-    CreepSpawn.run()
+    CreepSpawn().run()
 
     for name in Object.keys(Game.creeps):
         creep = Game.creeps[name]

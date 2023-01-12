@@ -1,5 +1,5 @@
 from defs import *
-from helper import Helper
+from helper import *
 
 __pragma__('noalias', 'name')
 __pragma__('noalias', 'undefined')
@@ -12,12 +12,20 @@ __pragma__('noalias', 'update')
 
 
 class CreepSpawn:
-    creeps_max = 3
-    creep_body = [WORK, CARRY, MOVE, MOVE]
 
-    @classmethod
-    def run(cls):
-        spawn = Helper.near_spawn()
-        num_creeps = _.sum(Game.creeps, lambda c: c.pos.roomName == spawn.pos.roomName)
-        if num_creeps < cls.creeps_max:
-            spawn.createCreep(cls.creep_body, None, {"role": "Harvester", "filling": False})
+    def __init__(self):
+        self.spawn = Helper.near_spawn()
+        self.creep_harvester_max = 3
+
+    def run(self):
+        if self.creep_count() < self.creep_harvester_max:
+            self.spawn.createCreep([WORK, WORK, CARRY, MOVE], None, {"role": "Harvester", "filling": False})
+
+    @staticmethod
+    def creep_count():
+        num_harvesters = 0
+        for name in Object.keys(Game.creeps):
+            creep = Game.creeps[name]
+            if creep.memory.role == "Harvester":
+                num_harvesters += 1
+        return num_harvesters

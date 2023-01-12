@@ -1,5 +1,4 @@
 from defs import *
-from helper import Helper
 from creep import Creep
 
 __pragma__('noalias', 'name')
@@ -18,21 +17,19 @@ class Harvester(Creep):
         super().__init__(creep, source)
 
     def run(self):
-        creep = self.creep
-        spawn = self.spawn
 
         # Проверка полный ли крип
-        if creep.store[RESOURCE_ENERGY] == creep.store.getCapacity():
-            creep.memory.filling = True
+        if self.creep.store[RESOURCE_ENERGY] == self.creep.store.getCapacity():
+            self.creep.memory.filling = True
 
         # Если спавн не полный, то восполнить, если полный, то апгейдить
-        if spawn.store[RESOURCE_ENERGY] < spawn.store.getCapacity(RESOURCE_ENERGY):
+        if self.spawn.store[RESOURCE_ENERGY] < self.spawn.store.getCapacity(RESOURCE_ENERGY):
             self.harvest()
-        elif spawn.store[RESOURCE_ENERGY] == spawn.store.getCapacity(RESOURCE_ENERGY):
+        elif self.spawn.store[RESOURCE_ENERGY] == self.spawn.store.getCapacity(RESOURCE_ENERGY):
             self.upgrade()
 
     def upgrade(self):
-
+        """Апгрейд контроллера"""
         if self.creep.memory.filling:
             if self.creep.transfer(self.creep.room.controller, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE:
                 self.creep.moveTo(self.creep.room.controller)
@@ -43,7 +40,7 @@ class Harvester(Creep):
             self.harvest_energy()
 
     def harvest(self):
-
+        """Снабжение спавна энергией"""
         if self.creep.memory.filling:
             if self.creep.transfer(self.spawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE:
                 self.creep.moveTo(self.spawn)
