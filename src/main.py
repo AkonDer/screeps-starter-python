@@ -1,5 +1,5 @@
 from defs import *
-from simplecreep import SimpleCreep
+from harvester import Harvester
 from creepSpawn import CreepSpawn
 
 # These are currently required for Transcrypt in order to use the following names in JavaScript.
@@ -25,7 +25,7 @@ def main():
     for name in Object.keys(Game.creeps):
         creep = Game.creeps[name]
         sources = creep.room.find(FIND_SOURCES)
-        SimpleCreep(creep, sources[0]).run()
+        Harvester(creep, sources[0]).run()
 
 
 module.exports.loop = main
