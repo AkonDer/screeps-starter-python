@@ -23,11 +23,11 @@ def main():
 
     for name in Object.keys(Game.creeps):
         creep = Game.creeps[name]
-        sources = creep.room.find(FIND_SOURCES)
+        sources = creep.pos.findClosestByRange(FIND_SOURCES)
         if creep.memory.role == "Harvester":
-            Harvester(creep, sources[0]).run()
+            Harvester(creep, sources).run()
         elif creep.memory.role == "Builder":
-            Builder(creep, sources[0]).run()
+            Builder(creep, sources).run()
 
 
 module.exports.loop = main

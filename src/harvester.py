@@ -21,9 +21,9 @@ class Harvester(Creep):
         self.is_creep_filling()
 
         # Если спавн не полный, то восполнить, если полный, то апгейдить
-        if self.spawn.store[RESOURCE_ENERGY] < self.spawn.store.getCapacity(RESOURCE_ENERGY):
+        if self.spawn.store.getFreeCapacity(RESOURCE_ENERGY) > 0:
             self.harvest()
-        elif self.spawn.store[RESOURCE_ENERGY] == self.spawn.store.getCapacity(RESOURCE_ENERGY):
+        elif self.spawn.store.getFreeCapacity(RESOURCE_ENERGY) == 0:
             self.upgrade()
 
     def upgrade(self):
@@ -40,10 +40,11 @@ class Harvester(Creep):
     def harvest(self):
         """Снабжение спавна энергией"""
         if self.creep.memory.filling:
-            if self.creep.transfer(self.spawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE:
+            if self.spawn.store.getFreeCapacity() != 0 \
+                    and self.creep.transfer(self.spawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE:
                 self.creep.moveTo(self.spawn)
             else:
-                if self.spawn.store[RESOURCE_ENERGY] == self.spawn.store.getCapacity(RESOURCE_ENERGY) \
+                if self.spawn.store.getFreeCapacity(RESOURCE_ENERGY) == 0 \
                         or self.creep.store[RESOURCE_ENERGY] == 0:
                     self.creep.memory.filling = False
         else:

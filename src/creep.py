@@ -31,5 +31,5 @@ class Creep:
 
     def is_creep_filling(self):
         """ Проверка заполнен ли крип энергией """
-        if self.creep.store[RESOURCE_ENERGY] == self.creep.store.getCapacity():
+        if self.creep.store.getFreeCapacity() == 0:
             self.creep.memory.filling = True
