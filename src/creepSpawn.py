@@ -19,7 +19,7 @@ class CreepSpawn:
     def run(self):
         if self.creep_count()["Harvesters"] < self.creep_harvester_max:
             self.spawn.createCreep([WORK, WORK, CARRY, MOVE], None, {"role": "Harvester", "filling": False})
-        if self.creep_count()["Builders"] < self.creep_builder_max:
+        if self.creep_count()["Harvesters"] >= 3 and self.creep_count()["Builders"] < self.creep_builder_max:
             self.spawn.createCreep([WORK, WORK, CARRY, MOVE], None, {"role": "Builder", "filling": False})
 
     @staticmethod

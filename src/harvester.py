@@ -18,9 +18,7 @@ class Harvester(Creep):
 
     def run(self):
 
-        # Проверка полный ли крип
-        if self.creep.store[RESOURCE_ENERGY] == self.creep.store.getCapacity():
-            self.creep.memory.filling = True
+        self.is_creep_filling()
 
         # Если спавн не полный, то восполнить, если полный, то апгейдить
         if self.spawn.store[RESOURCE_ENERGY] < self.spawn.store.getCapacity(RESOURCE_ENERGY):

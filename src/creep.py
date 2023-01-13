@@ -12,6 +12,11 @@ __pragma__('noalias', 'update')
 
 
 class Creep:
+    """
+    Базовый класс
+    def harvest_energy(self): Добыча энергии
+    def is_creep_filling(self): Проверка заполнен ли крип энергией
+    """
 
     spawn = Helper.near_spawn()
 
@@ -20,5 +25,11 @@ class Creep:
         self.creep = creep
 
     def harvest_energy(self):
+        """ Добыча энергии """
         if self.creep.harvest(self.source) == ERR_NOT_IN_RANGE:
             self.creep.moveTo(self.source)
+
+    def is_creep_filling(self):
+        """ Проверка заполнен ли крип энергией """
+        if self.creep.store[RESOURCE_ENERGY] == self.creep.store.getCapacity():
+            self.creep.memory.filling = True
